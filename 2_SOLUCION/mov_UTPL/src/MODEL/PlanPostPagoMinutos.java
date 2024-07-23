@@ -4,11 +4,10 @@ package MODEL;
 public class PlanPostPagoMinutos extends PlanMinutos implements PlanMovil{
     public int minutoInternacional;
     public double costoMinutoInternacional;    
-
-    public PlanPostPagoMinutos(int minutoInternacional, double costoMinutoInternacional, int minutos, double costoMinutos) {
-        super(minutos, costoMinutos);
+    
+    public PlanPostPagoMinutos(int minutos, int minutoInternacional) {
+        super(minutos);
         this.minutoInternacional = minutoInternacional;
-        this.costoMinutoInternacional = costoMinutoInternacional;
     }
     
     public int getMinutoInternacional() {
@@ -23,13 +22,13 @@ public class PlanPostPagoMinutos extends PlanMinutos implements PlanMovil{
         return costoMinutoInternacional;
     }
 
-    public void setCostoMinutoInternacional(double costoMinutoInternacional) {
-        this.costoMinutoInternacional = costoMinutoInternacional;
+    public void calcularCostoMinutoInternacional() {
+        costoMinutoInternacional = minutoInternacional * 0.50;
     }
 
     @Override
     public void calcularPlan() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        total = costoMinutos + costoMinutoInternacional;
     }
     
 }

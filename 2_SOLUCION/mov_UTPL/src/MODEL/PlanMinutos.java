@@ -4,12 +4,12 @@ package MODEL;
 public class PlanMinutos {
     public int minutos;
     public double costoMinutos;
+    public double total;
 
-    public PlanMinutos(int minutos, double costoMinutos) {
+    public PlanMinutos(int minutos) {
         this.minutos = minutos;
-        this.costoMinutos = costoMinutos;
     }
-
+    
     public int getMinutos() {
         return minutos;
     }
@@ -22,8 +22,12 @@ public class PlanMinutos {
         return costoMinutos;
     }
 
-    public void setCostoMinutos(double costoMinutos) {
-        this.costoMinutos = costoMinutos;
+    public void calcularCostoMinutos() {
+        /*
+        Precio del minuto de llamada celular en Ecuador
+        Precio final: $ 0,0448 incluido impuestos
+        */
+        costoMinutos = minutos * 0.0448;
     }
 
 }
