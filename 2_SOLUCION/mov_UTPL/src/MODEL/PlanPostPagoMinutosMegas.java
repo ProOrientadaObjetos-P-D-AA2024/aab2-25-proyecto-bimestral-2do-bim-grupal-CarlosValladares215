@@ -26,12 +26,21 @@ public class PlanPostPagoMinutosMegas extends PlanMinutos implements PlanMovil {
     }
 
     public void calcularCostoPorGigas() {
-        costoPorGigas = megasExpresadosGigas * 5;
+        costoPorGigas = megasExpresadosGigas * 1.5;
     }
 
     @Override
     public void calcularPlan() {
+        calcularCostoMinutos();
+        calcularMegasExpresadosGigas();
+        calcularCostoMinutos();
+
         total = costoMinutos + costoPorGigas;
     }
 
+    @Override
+    public String nombrePlan() {
+        String nombrePlan = "Plan Post Pago Minutos Megas";
+        return nombrePlan;
+    }
 }

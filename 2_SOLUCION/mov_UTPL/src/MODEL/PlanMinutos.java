@@ -3,8 +3,7 @@ package MODEL;
 
 public class PlanMinutos {
     public int minutos;
-    public double costoMinutos;
-    public double total;
+    public double costoMinutos, total;
 
     public PlanMinutos(int minutos) {
         this.minutos = minutos;
@@ -28,6 +27,10 @@ public class PlanMinutos {
         Precio final: $ 0,0448 incluido impuestos
         */
         costoMinutos = minutos * 0.0448;
+    }
+
+    public double getTotal() {
+        return total;
     }
 
 }

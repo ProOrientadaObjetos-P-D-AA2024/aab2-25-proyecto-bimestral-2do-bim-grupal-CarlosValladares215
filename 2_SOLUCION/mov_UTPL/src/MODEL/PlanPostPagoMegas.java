@@ -27,7 +27,7 @@ public class PlanPostPagoMegas implements PlanMovil{
     }
 
     public void calcularCostoPorGigas() {
-        costoPorGigas = megasExpresadosGigas*5;
+        costoPorGigas = megasExpresadosGigas*1.5;
     }
 
     public double getTarifaBase() {
@@ -48,8 +48,19 @@ public class PlanPostPagoMegas implements PlanMovil{
     
     @Override
     public void calcularPlan() {
+        calcularMegasExpresadosGigas();
+        calcularCostoPorGigas();
+        definirTarifaBase();
+        
         total = costoPorGigas + tarifaBase;
     }
-    
+
+    @Override
+    public String nombrePlan() {
+        String nombrePlan = "Plan Post Pago Megas";
+
+        return nombrePlan;
+    }
+
     
 }
