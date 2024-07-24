@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import CONTROLER.DatabaseUtils;
 
 public class ConeccionDB {
 
@@ -19,7 +18,7 @@ public class ConeccionDB {
     public void establecerConexion() {
 
         try {
-            String url = "jdbc:sqlite:bd/dbTest_1.db";
+            String url = "jdbc:sqlite:bd/dataBase_movUTPL.db";
             // La base da datos se usa para conectarse, mientras que la tabla permite realizar acciones CRUD
             concDB = DriverManager.getConnection(url);
 
@@ -54,7 +53,6 @@ public class ConeccionDB {
         }
     }
     
-    // READ #1 Leer Planes
    public ResultSet leerDatos(String tableName) {
         ResultSet resultSet = null;
         try {
@@ -66,62 +64,71 @@ public class ConeccionDB {
         }
         return resultSet;
     }
-    
-    // READ #2 Leer Clientes
-    public ArrayList<Clientes> leerLista() {
-        lista = new ArrayList<>();
+   
+   public int obtenerCodigoPorPasaporte(String pasaporte) {
+        int codigo = -1;
         try {
             establecerConexion();
             try (Statement statement = concDB.createStatement()) {
-                ResultSet resultSet = statement.executeQuery("Select * from Estudiante");
-                while (resultSet.next()) {
-                    lstEstudiantes.add(new Estudiante(resultSet.getString("nombreEst"),
-                            resultSet.getDouble("nota1"),
-                            resultSet.getDouble("nota2"),
-                            resultSet.getDouble("promedio"),
-                            resultSet.getString("estado"),
-                            resultSet.getString("id")));
+                String query = String.format("SELECT codigo FROM Clientes WHERE pasaporte = '%s'", pasaporte);
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    codigo = resultSet.getInt("codigo");
                 }
             }
         } catch (SQLException sqlException) {
-            this.msj = sqlException.getMessage();
+            this.mensaje = sqlException.getMessage();
         }
-        return lstEstudiantes;
+        return codigo;
     }
-
     
-        // UPDATE
-    public void updateEstudiante(Estudiante estudiante) {
+   public Clientes obtenerClientePorPasaporte(String pasaporte) {
+    Clientes cliente = null;
+    try {
+        establecerConexion();
+        try (Statement statement = concDB.createStatement()) {
+            String query = String.format("SELECT * FROM Clientes WHERE pasaporte = '%s'", pasaporte);
+            ResultSet resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                cliente = new Clientes(
+                    resultSet.getString("nombres"),
+                    resultSet.getString("pasaporte"),
+                    resultSet.getString("ciudad"),
+                    resultSet.getString("marca"),
+                    resultSet.getString("modelo"),
+                    resultSet.getString("numeroCelular"),
+                    resultSet.getString("numeroTarjetaCredito"),
+                    resultSet.getInt("codigo"),
+                    resultSet.getDouble("pagoMensual"),
+                    resultSet.getString("tipoDePlan_1"),
+                    resultSet.getString("tipoDePlan_2"));
+            }
+        }
+    } catch (SQLException sqlException) {
+        this.mensaje = sqlException.getMessage();
+    }
+    return cliente;
+}
+
+    public void actualizarRegistro(String tableName, String strUpdate) {
         try {
             establecerConexion();
             try (Statement statement = concDB.createStatement()) {
-                String strUpdateEst = String.format("UPDATE Estudiante SET "
-                        + "nombreEst = '%s', "
-                        + "estado = '%s', "
-                        + "nota1 = %d, "
-                        + "nota2 = %d, "
-                        + "promedio = %d "
-                        + "WHERE id = '%s'",
-                        estudiante.nombreEst, estudiante.estado, (int) estudiante.nota1, (int) estudiante.nota2, (int) estudiante.promedio, estudiante.id);
-                statement.executeUpdate(strUpdateEst);
-                System.out.println("Estudiante actualizado en la base de datos: " + estudiante.getNombreEst());
+                statement.executeUpdate(strUpdate);
             }
         } catch (SQLException sqlException) {
-            this.msj = sqlException.getMessage();
-            System.out.println("Error al actualizar estudiante: " + this.msj);
+            this.mensaje = sqlException.getMessage();
         }
     }
 
-    // DELETED
-    public void deletedEstudiante(String id) {
+    public void eliminarRegistro(String tableName, String strDelete) {
         try {
             establecerConexion();
             try (Statement statement = concDB.createStatement()) {
-                String strInsertEst = String.format("delete from Estudiante where id='%s'", id);
-                statement.executeUpdate(strInsertEst);
+                statement.executeUpdate(strDelete);
             }
         } catch (SQLException sqlException) {
-            this.msj = sqlException.getMessage();
+            this.mensaje = sqlException.getMessage();
         }
     }
 }

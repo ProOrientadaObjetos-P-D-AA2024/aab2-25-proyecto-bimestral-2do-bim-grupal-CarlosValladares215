@@ -1,22 +1,20 @@
 package MODEL;
 
-public class PlanPostPagoMinutosMegasEconomico extends PlanMinutos implements PlanMovil {
+public class PlanPostPagoMinutosMegasEconomico extends PlanMinutos {
 
     public double porcentajeDescuento, megas, megasExpresadosGigas, costoPorGigas;
 
-    public PlanPostPagoMinutosMegasEconomico(int minutos, double costoMinutos, double porcentajeDescuento, double megas, double megasExpresadosGigas, double costoPorGigas, double total) {
-        super(minutos, costoMinutos, total);
+    public PlanPostPagoMinutosMegasEconomico(String pasaporte, int minutos, double costoMinutos, double porcentajeDescuento, double megas, double megasExpresadosGigas, double costoPorGigas, double todos) {
+        super(pasaporte, minutos, costoMinutos, todos);
         this.porcentajeDescuento = porcentajeDescuento;
         this.megas = megas;
         this.megasExpresadosGigas = megasExpresadosGigas;
         this.costoPorGigas = costoPorGigas;
     }
 
-
-    public PlanPostPagoMinutosMegasEconomico(double megas, int minutos) {
-        super(minutos);
+    public PlanPostPagoMinutosMegasEconomico(String pasaporte, int minutos, double megas) {
+        super(pasaporte, minutos);
         this.megas = megas;
-        porcentajeDescuento = 1.15;
     }
 
     public double getMegas() {

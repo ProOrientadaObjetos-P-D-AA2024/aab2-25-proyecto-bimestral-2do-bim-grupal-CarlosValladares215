@@ -19,62 +19,39 @@ public class ProcesarPlanes {
         this.listaDePlanes = listaDePlanes;
     }
     
-    
     // Insertar Datos (CREATE)
     public String[] getColumnNombresPlanPostPagoMinutosMegasEconomico() {
-        return new String[]{"minutos", "costoMinutos", "porcentajeDescuento", "megas", "megasExpresadosGigas", "costoPorGigas", "total"};
+        return new String[]{"pasaporte", "minutos", "costoMinutos", "porcentajeDescuento", "megas", "megasExpresadosGigas", "costoPorGigas", "total"};
     }
 
     public Object[] getValuesPlanPostPagoMinutosMegasEconomico(PlanPostPagoMinutosMegasEconomico plan) {
-        return new Object[]{plan.getMinutos(), plan.getCostoMinutos(), plan.getPorcentajeDescuento(), plan.getMegas(), plan.getMegasExpresadosGigas(), plan.getCostoPorGigas(), plan.getTotal()};
+        return new Object[]{plan.getPasaporte(), plan.getMinutos(), plan.getCostoMinutos(), plan.getPorcentajeDescuento(), plan.getMegas(), plan.getMegasExpresadosGigas(), plan.getCostoPorGigas(), plan.getTotal()};
     }
 
     public String[] getColumnNombresPlanPostPagoMinutosMegas() {
-        return new String[]{"minutos", "costoMinutos", "megas", "megasExpresadosGigas", "costoPorGigas", "total"};
+        return new String[]{"pasaporte","minutos", "costoMinutos", "megas", "megasExpresadosGigas", "costoPorGigas", "total"};
     }
 
     public Object[] getValuesPlanPostPagoMinutosMegas(PlanPostPagoMinutosMegas plan) {
-        return new Object[]{plan.getMinutos(), plan.getMegas(), plan.getMegasExpresadosGigas(), plan.getCostoPorGigas()};
+        return new Object[]{plan.getPasaporte(), plan.getMinutos(), plan.getMegas(), plan.getMegasExpresadosGigas(), plan.getCostoPorGigas()};
     }
 
     public String[] getColumnNombresPlanPostPagoMinutos() {
-        return new String[]{"minutos", "costoMinutos", "minutoInternacional", "costoMinutoInternacional", "total"};
+        return new String[]{"pasaporte", "minutos", "costoMinutos", "minutoInternacional", "costoMinutoInternacional", "total"};
     }
 
     public Object[] getValuesPlanPostPagoMinutos(PlanPostPagoMinutos plan) {
-        return new Object[]{plan.getMinutos(), plan.getCostoMinutos(), plan.getMinutoInternacional(), plan.getCostoMinutoInternacional(), plan.getTotal()};
+        return new Object[]{plan.getPasaporte(), plan.getMinutos(), plan.getCostoMinutos(), plan.getMinutoInternacional(), plan.getCostoMinutoInternacional(), plan.getTotal()};
     }
 
     public String[] getColumnNombresPlanPostPagoMegas() {
-        return new String[]{"tarifaBase", "megas", "megasExpresadosGigas", "costoPorGigas", "total"};
+        return new String[]{"pasaporte", "tarifaBase", "megas", "megasExpresadosGigas", "costoPorGigas", "total"};
     }
 
     public Object[] getValuesPlanPostPagoMegas(PlanPostPagoMegas plan) {
-        return new Object[]{plan.getTarifaBase(), plan.getMegas(), plan.getMegasExpresadosGigas(), plan.getCostoPorGigas(), plan.getTotal()};
+        return new Object[]{plan.getPasaporte(), plan.getTarifaBase(), plan.getMegas(), plan.getMegasExpresadosGigas(), plan.getCostoPorGigas(), plan.getTotal()};
     }
     
-    /*
-    public PlanPostPagoMinutosMegasEconomico readPlanPostPagoMinutosMegasEconomico(ResultSet resultSet) throws SQLException {
-        return new PlanPostPagoMinutosMegasEconomico(resultSet.getInt("minutos"), resultSet.getDouble("costoMinutos"),
-            resultSet.getDouble("porcentajeDescuento"), resultSet.getDouble("megas"),
-            resultSet.getDouble("megasExpresadosGigas"), resultSet.getDouble("costoPorGigas"), resultSet.getDouble("total"));
-    }
-    public PlanPostPagoMinutosMegas readColumnNombresPlanPostPagoMinutosMegas(ResultSet resultSet) throws SQLException {
-        return new PlanPostPagoMinutosMegas(resultSet.getInt("minutos"), resultSet.getDouble("costoMinutos"),
-            resultSet.getDouble("megas"), resultSet.getDouble("megasExpresadosGigas"),
-            resultSet.getDouble("costoPorGigas"), resultSet.getDouble("total"));
-    }
-    
-    public PlanPostPagoMinutos readColumnNombresPlanPostPagoMinutos(ResultSet resultSet) throws SQLException {
-        return new PlanPostPagoMinutos(resultSet.getInt("minutos"), resultSet.getDouble("costoMinutos"),
-            resultSet.getInt("minutoInternacional"), resultSet.getDouble("costoMinutoInternacional"),
-            resultSet.getDouble("total"));
-    }
-        public PlanPostPagoMegas readColumnNombresPlanPostPagoMegas(ResultSet resultSet) throws SQLException {
-        return new PlanPostPagoMegas(resultSet.getDouble("tarifaBase"), resultSet.getDouble("megas"),
-            resultSet.getDouble("megasExpresadosGigas"), resultSet.getDouble("costoPorGigas"),
-            resultSet.getDouble("total"));
-    }*/
     public ArrayList<PlanMovil> procesarPlanes(String tableName, ResultSet resultSet) throws SQLException {
         ArrayList<PlanMovil> listaPlanes = new ArrayList<>();
 
@@ -83,6 +60,7 @@ public class ProcesarPlanes {
             switch (tableName) {
                 case "PlanPostPagoMinutosMegasEconomico":
                     plan = new PlanPostPagoMinutosMegasEconomico(
+                            resultSet.getString("pasaporte"),
                             resultSet.getInt("minutos"),
                             resultSet.getDouble("costoMinutos"),
                             resultSet.getDouble("porcentajeDescuento"),
@@ -94,6 +72,7 @@ public class ProcesarPlanes {
                     break;
                 case "PlanPostPagoMinutosMegas":
                     plan = new PlanPostPagoMinutosMegas(
+                            resultSet.getString("pasaporte"),
                             resultSet.getInt("minutos"),
                             resultSet.getDouble("costoMinutos"),
                             resultSet.getDouble("megas"),
@@ -104,6 +83,7 @@ public class ProcesarPlanes {
                     break;
                 case "PlanPostPagoMinutos":
                     plan = new PlanPostPagoMinutos(
+                            resultSet.getString("pasaporte"),
                             resultSet.getInt("minutos"),
                             resultSet.getDouble("costoMinutos"),
                             resultSet.getInt("minutoInternacional"),
@@ -113,6 +93,7 @@ public class ProcesarPlanes {
                     break;
                 case "PlanPostPagoMegas":
                     plan = new PlanPostPagoMegas(
+                            resultSet.getString("pasaporte"),
                             resultSet.getDouble("tarifaBase"),
                             resultSet.getDouble("megas"),
                             resultSet.getDouble("megasExpresadosGigas"),
@@ -127,5 +108,4 @@ public class ProcesarPlanes {
         }
         return listaPlanes;
     }
-    
 }

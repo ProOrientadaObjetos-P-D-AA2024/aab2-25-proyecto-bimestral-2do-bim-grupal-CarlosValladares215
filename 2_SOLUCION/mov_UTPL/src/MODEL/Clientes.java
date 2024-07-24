@@ -1,55 +1,55 @@
-
 package MODEL;
 
 import java.util.ArrayList;
 
 public class Clientes {
-    public String nombres, pasaporte, ciudad, marca, numeroCelular, 
-            numeroTarjetaCredito, tipoDePlan_1, tipoDePlan_2;
-    public int contraseña;
-    public double pagoMensual;
-    // variable que guarde dos planes Array, get impide que sean mas de dos
 
-    public Clientes(String nombres, String pasaporte, String ciudad, String marca, String numeroCelular, String numeroTarjetaCredito, String tipoDePlan_1, String tipoDePlan_2, int contraseña, double pagoMensual) {
+    public String nombres, pasaporte, ciudad, marca, modelo, numeroCelular,
+            numeroTarjetaCredito, tipoDePlan_1, tipoDePlan_2;
+    public int codigo;
+    public double pagoMensual;
+    public ArrayList<PlanMovil> listaPlanes;
+
+    public Clientes(String nombres, String pasaporte, String ciudad, String marca, String modelo, String numeroCelular, String numeroTarjetaCredito, int codigo, double pagoMensual, String tipoDePlan_1, String tipoDePlan_2) {
         this.nombres = nombres;
         this.pasaporte = pasaporte;
         this.ciudad = ciudad;
         this.marca = marca;
+        this.modelo = modelo;
         this.numeroCelular = numeroCelular;
         this.numeroTarjetaCredito = numeroTarjetaCredito;
+        this.codigo = codigo;
+        this.pagoMensual = pagoMensual;
         this.tipoDePlan_1 = tipoDePlan_1;
         this.tipoDePlan_2 = tipoDePlan_2;
-        this.contraseña = contraseña;
-        this.pagoMensual = pagoMensual;
+        listaPlanes = new ArrayList<>();
     }
 
-    public Clientes(String nombres, String pasaporte, String ciudad, String marca, String numeroCelular, String numeroTarjetaCredito, int contraseña, PlanMovil plan1) {
-        ArrayList<PlanMovil> planesMoviles = new ArrayList<>();
+    public Clientes(String nombres, String pasaporte, String ciudad, String marca, String modelo, String numeroCelular, String numeroTarjetaCredito, int codigo) {
         this.nombres = nombres;
         this.pasaporte = pasaporte;
         this.ciudad = ciudad;
         this.marca = marca;
+        this.modelo = modelo;
         this.numeroCelular = numeroCelular;
         this.numeroTarjetaCredito = numeroTarjetaCredito;
-        this.contraseña = contraseña;
-        planesMoviles.add(plan1);
-        setTipoDePlan_1(plan1);
-        
+        this.codigo = codigo;
+        listaPlanes = new ArrayList<>();
     }
-    
-    public Clientes(String nombres, String pasaporte, String ciudad, String marca, String numeroCelular, String numeroTarjetaCredito, int contraseña, PlanMovil plan1, PlanMovil plan2) {
-        ArrayList<PlanMovil> planesMoviles = new ArrayList<>();
+
+    public Clientes(String nombres, String pasaporte, String ciudad, String marca, String modelo, String numeroCelular, String numeroTarjetaCredito, int codigo, String tipoDePlan_1, String tipoDePlan_2) {
         this.nombres = nombres;
         this.pasaporte = pasaporte;
         this.ciudad = ciudad;
         this.marca = marca;
+        this.modelo = modelo;
         this.numeroCelular = numeroCelular;
         this.numeroTarjetaCredito = numeroTarjetaCredito;
-        this.contraseña = contraseña;
-        planesMoviles.add(plan1);
-        planesMoviles.add(plan2);
-        setTipoDePlan_1(plan1);
-        setTipoDePlan_2(plan2);
+        this.codigo = codigo;
+        this.tipoDePlan_1 = tipoDePlan_1;
+        this.tipoDePlan_2 = tipoDePlan_2;
+        listaPlanes = new ArrayList<>();
+
     }
 
     public String getNombres() {
@@ -84,6 +84,14 @@ public class Clientes {
         this.marca = marca;
     }
 
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
     public String getNumeroCelular() {
         return numeroCelular;
     }
@@ -100,39 +108,61 @@ public class Clientes {
         this.numeroTarjetaCredito = numeroTarjetaCredito;
     }
 
-    public int getContraseña() {
-        return contraseña;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setContraseña(int contraseña) {
-        this.contraseña = contraseña;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public double getPagoMensual() {
         return pagoMensual;
     }
 
-    public void calcularPagoMensual(ArrayList<PlanMovil> planesMoviles) {
-        int valor;
-        for (int i = 0; i < planesMoviles.size(); i++) {
-            // 
+    public void calcularPagoMensual() {
+        double valor = 0;
+        for (int i = 0; i < listaPlanes.size(); i++) {
+            valor = valor + listaPlanes.get(i).getTotal();
         }
+        pagoMensual = valor;
     }
 
     public String getTipoDePlan_1() {
         return tipoDePlan_1;
     }
 
-    private void setTipoDePlan_1(PlanMovil plan1) {
-        tipoDePlan_1 = plan1.nombrePlan();
+    public void setTipoDePlan_1(String tipoDePlan_1) {
+        this.tipoDePlan_1 = tipoDePlan_1;
     }
 
     public String getTipoDePlan_2() {
         return tipoDePlan_2;
     }
 
-    private void setTipoDePlan_2(PlanMovil plan2) {
-        tipoDePlan_2 = plan2.nombrePlan();
+    public void setTipoDePlan_2(String tipoDePlan_2) {
+        this.tipoDePlan_2 = tipoDePlan_2;
     }
 
+    public ArrayList<PlanMovil> getListaPlanes() {
+        return listaPlanes;
+    }
+
+    public void setListaPlanes(PlanMovil plan) {
+        if (!listaPlanes.isEmpty()) {
+            if (listaPlanes.size() == 1) {
+            listaPlanes.add(plan);
+            setTipoDePlan_1(plan.nombrePlan());
+            System.out.println("La compra ha sido realizada con exito");
+        } else {
+            if (listaPlanes.size() == 2) {
+                listaPlanes.add(plan);
+                setTipoDePlan_2(plan.nombrePlan());
+                System.out.println("La compra ha sido realizada con exito");
+            } else {
+                System.out.println("Usted ha alcanzado el limite de planes activos en su cuenta");
+            }
+        }
+        }
+    }
 }

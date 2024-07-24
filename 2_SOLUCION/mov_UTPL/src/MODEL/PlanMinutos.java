@@ -1,17 +1,18 @@
 
 package MODEL;
 
-public class PlanMinutos {
+public class PlanMinutos extends PlanMovil{
     public int minutos;
-    public double costoMinutos, total;
+    public double costoMinutos;
 
-    public PlanMinutos(int minutos, double costoMinutos, double total) {
+    public PlanMinutos( String pasaporte, int minutos, double costoMinutos, double todos) {
+        super(pasaporte);
         this.minutos = minutos;
         this.costoMinutos = costoMinutos;
-        this.total = total;
     }
-    
-    public PlanMinutos(int minutos) {
+
+    public PlanMinutos(String pasaporte, int minutos) {
+        super(pasaporte);
         this.minutos = minutos;
     }
     
@@ -35,8 +36,14 @@ public class PlanMinutos {
         costoMinutos = minutos * 0.0448;
     }
 
-    public double getTotal() {
-        return total;
+    @Override
+    public void calcularPlan() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String nombrePlan() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -1,22 +1,21 @@
 package MODEL;
 
-public class PlanPostPagoMinutos extends PlanMinutos implements PlanMovil {
+public class PlanPostPagoMinutos extends PlanMinutos{
 
     public int minutoInternacional;
     public double costoMinutoInternacional;
 
-    public PlanPostPagoMinutos(int minutos, double costoMinutos, int minutoInternacional, double costoMinutoInternacional, double total) {
-        super(minutos, costoMinutos, total);
+    public PlanPostPagoMinutos(String pasaporte, int minutos, double costoMinutos, int minutoInternacional, double costoMinutoInternacional, double todos) {
+        super(pasaporte, minutos, costoMinutos, todos);
         this.minutoInternacional = minutoInternacional;
         this.costoMinutoInternacional = costoMinutoInternacional;
     }
 
-    
-
-    public PlanPostPagoMinutos(int minutos, int minutoInternacional) {
-        super(minutos);
+    public PlanPostPagoMinutos(String pasaporte, int minutos, int minutoInternacional) {
+        super(pasaporte, minutos);
         this.minutoInternacional = minutoInternacional;
     }
+
 
     public int getMinutoInternacional() {
         return minutoInternacional;
