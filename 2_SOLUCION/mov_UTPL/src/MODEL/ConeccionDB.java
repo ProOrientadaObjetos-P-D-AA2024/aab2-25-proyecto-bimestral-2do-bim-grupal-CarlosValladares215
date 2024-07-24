@@ -120,6 +120,32 @@ public class ConeccionDB {
         }
     }
 
+    public void actualizarCliente(Clientes cliente) {
+        try {
+            establecerConexion();
+            try (Statement statement = concDB.createStatement()) {
+                String strUpdateEst = String.format("UPDATE Clientes SET "
+                        + "nombres = '%s', "
+                        + "ciudad = '%s', "
+                        + "marca = '%s', "
+                        + "modelo = '%s', "
+                        +"numeroCeluluar = '%s', "
+                        +"numeroTarjetaCredito = '%s', "
+                        +"codigo = %d, "
+                        +"pagoMensual = %.2f, "
+                        +"tipoDePlan_1 = '%s', "
+                        + "tipoDePlan_2 = '%s', "
+                        + "WHERE pasaporte = '%s'",
+                        cliente.nombres, cliente.ciudad, cliente.marca, cliente.modelo, cliente.numeroCelular, cliente.numeroTarjetaCredito,
+                cliente.codigo, cliente.pagoMensual, cliente.tipoDePlan_1, cliente.tipoDePlan_2);
+                
+                statement.executeUpdate(strUpdateEst);
+            }
+        } catch (SQLException sqlException) {
+            this.mensaje = sqlException.getMessage();
+        }
+    }
+
     public void eliminarRegistro(String tableName, String strDelete) {
         try {
             establecerConexion();

@@ -20,7 +20,7 @@ public class Ejecutor {
         CRUD_Clientes dataClientes = new CRUD_Clientes(dbConnection, listaCliente);
         Sesion sesion = new Sesion();
 
-        String nombre, pasaporte, ciudad, marca, modelo, numeroCelular,
+        String nombre, pasaporte = null, ciudad, marca, modelo, numeroCelular,
                 numeroTarjetaCredito, TipoDePlan_1, TipoDePlan_2, respuestCompra;
         int codigo, minutos, minutoInternacional;
         double pagoMensual, megas;
@@ -84,7 +84,7 @@ public class Ejecutor {
                                     sesion.getCliente().setListaPlanes(planComprado);
                                     sesion.getCliente().calcularPagoMensual();
                                     
-                                    dataClientes.actualizarCliente(sesion.getCliente(), "PlanPostPagoMinutosMegasEconomico", sesion.getCliente().getPasaporte());
+                                    dataClientes.actualizarCliente(sesion.getCliente());
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
                                 }
@@ -104,7 +104,7 @@ public class Ejecutor {
                                     planComprado.calcularPlan();
                                     sesion.getCliente().setListaPlanes(planComprado);
                                     sesion.getCliente().calcularPagoMensual();
-                                    dataClientes.actualizarCliente(sesion.getCliente(), "PlanPostPagoMinutosMegas", sesion.getCliente().getPasaporte());
+                                    dataClientes.actualizarCliente(sesion.getCliente());
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
                                 }
@@ -124,7 +124,7 @@ public class Ejecutor {
                                     planComprado.calcularPlan();
                                     sesion.getCliente().setListaPlanes(planComprado);
                                     sesion.getCliente().calcularPagoMensual();
-                                    dataClientes.actualizarCliente(sesion.getCliente(), "PlanPostPagoMinutos", sesion.getCliente().getPasaporte());
+                                    dataClientes.actualizarCliente(sesion.getCliente());
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
                                 }
@@ -142,7 +142,7 @@ public class Ejecutor {
                                     planComprado.calcularPlan();
                                     sesion.getCliente().setListaPlanes(planComprado);
                                     sesion.getCliente().calcularPagoMensual();
-                                    dataClientes.actualizarCliente(sesion.getCliente(), "PlanPostPagoMinutos", sesion.getCliente().getPasaporte());
+                                    dataClientes.actualizarCliente(sesion.getCliente());
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
                                 }
@@ -204,7 +204,6 @@ public class Ejecutor {
                                 System.out.println("Opción inválida.");
                                 break;
                         }
-                        dataClientes.actualizarCliente(cliente, "Clientes", cliente.getPasaporte());
                     }
                     break;
                 case 3:
@@ -270,7 +269,7 @@ public class Ejecutor {
                                 System.out.print("Contraseña: ");
                                 clienteActualizado.setCodigo(entrada.nextInt());
 
-                                dataClientes.actualizarCliente(clienteActualizado, "Clientes", clienteActualizado.getPasaporte());
+                                dataClientes.actualizarCliente(clienteActualizado);
                                 System.out.println("Cliente actualizado exitosamente.");
                             }
                             break;
