@@ -4,6 +4,14 @@ public class PlanPostPagoMinutosMegas extends PlanMinutos implements PlanMovil {
 
     public double megas, megasExpresadosGigas, costoPorGigas;
 
+    public PlanPostPagoMinutosMegas(int minutos, double costoMinutos, double megas, double megasExpresadosGigas, double costoPorGigas, double total) {
+        super(minutos, costoMinutos, total);
+        this.megas = megas;
+        this.megasExpresadosGigas = megasExpresadosGigas;
+        this.costoPorGigas = costoPorGigas;
+    }
+
+    
     public PlanPostPagoMinutosMegas(double megas, int minutos) {
         super(minutos);
         this.megas = megas;

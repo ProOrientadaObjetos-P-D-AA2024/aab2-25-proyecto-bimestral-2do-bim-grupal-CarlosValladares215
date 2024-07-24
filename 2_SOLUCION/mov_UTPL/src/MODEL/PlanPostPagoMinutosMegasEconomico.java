@@ -4,6 +4,15 @@ public class PlanPostPagoMinutosMegasEconomico extends PlanMinutos implements Pl
 
     public double porcentajeDescuento, megas, megasExpresadosGigas, costoPorGigas;
 
+    public PlanPostPagoMinutosMegasEconomico(int minutos, double costoMinutos, double porcentajeDescuento, double megas, double megasExpresadosGigas, double costoPorGigas, double total) {
+        super(minutos, costoMinutos, total);
+        this.porcentajeDescuento = porcentajeDescuento;
+        this.megas = megas;
+        this.megasExpresadosGigas = megasExpresadosGigas;
+        this.costoPorGigas = costoPorGigas;
+    }
+
+
     public PlanPostPagoMinutosMegasEconomico(double megas, int minutos) {
         super(minutos);
         this.megas = megas;

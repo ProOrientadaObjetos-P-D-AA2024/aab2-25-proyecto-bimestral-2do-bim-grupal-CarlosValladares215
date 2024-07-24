@@ -4,6 +4,14 @@ package MODEL;
 public class PlanPostPagoMegas implements PlanMovil{
     public double tarifaBase, megas, megasExpresadosGigas, costoPorGigas, total;
 
+    public PlanPostPagoMegas(double tarifaBase, double megas, double megasExpresadosGigas, double costoPorGigas, double total) {
+        this.tarifaBase = tarifaBase;
+        this.megas = megas;
+        this.megasExpresadosGigas = megasExpresadosGigas;
+        this.costoPorGigas = costoPorGigas;
+        this.total = total;
+    }
+    
     public PlanPostPagoMegas(double megas) {
         this.megas = megas;
         tarifaBase = 10;
@@ -44,6 +52,10 @@ public class PlanPostPagoMegas implements PlanMovil{
                 tarifaBase = 40;
             }
         }
+    }
+
+    public double getTotal() {
+        return total;
     }
     
     @Override

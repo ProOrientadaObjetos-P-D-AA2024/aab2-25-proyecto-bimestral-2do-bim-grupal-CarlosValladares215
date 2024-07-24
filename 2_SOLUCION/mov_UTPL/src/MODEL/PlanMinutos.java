@@ -5,6 +5,12 @@ public class PlanMinutos {
     public int minutos;
     public double costoMinutos, total;
 
+    public PlanMinutos(int minutos, double costoMinutos, double total) {
+        this.minutos = minutos;
+        this.costoMinutos = costoMinutos;
+        this.total = total;
+    }
+    
     public PlanMinutos(int minutos) {
         this.minutos = minutos;
     }

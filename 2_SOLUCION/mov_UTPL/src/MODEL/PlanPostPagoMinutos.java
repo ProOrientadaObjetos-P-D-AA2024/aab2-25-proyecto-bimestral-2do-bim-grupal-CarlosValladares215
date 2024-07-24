@@ -5,6 +5,14 @@ public class PlanPostPagoMinutos extends PlanMinutos implements PlanMovil {
     public int minutoInternacional;
     public double costoMinutoInternacional;
 
+    public PlanPostPagoMinutos(int minutos, double costoMinutos, int minutoInternacional, double costoMinutoInternacional, double total) {
+        super(minutos, costoMinutos, total);
+        this.minutoInternacional = minutoInternacional;
+        this.costoMinutoInternacional = costoMinutoInternacional;
+    }
+
+    
+
     public PlanPostPagoMinutos(int minutos, int minutoInternacional) {
         super(minutos);
         this.minutoInternacional = minutoInternacional;
