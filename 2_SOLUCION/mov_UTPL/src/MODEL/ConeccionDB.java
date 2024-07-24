@@ -15,19 +15,18 @@ public class ConeccionDB {
     public ArrayList<PlanMovil> listaPlanes;
     public String mensaje;
 
-    public void establecerConexion() {
-
+    public Connection establecerConexion() {
         try {
-            String url = "jdbc:sqlite:bd/dataBase_movUTPL.db";
-            // La base da datos se usa para conectarse, mientras que la tabla permite realizar acciones CRUD
-            concDB = DriverManager.getConnection(url);
-
+            if (concDB == null || concDB.isClosed()) {
+                String url = "jdbc:sqlite:bd/dataBase_movUTPL.db";
+                concDB = DriverManager.getConnection(url);
+            }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error al establecer la conexión: " + e.getMessage());
         }
+        return concDB;
     }
 
-    // devuelve un valor booleano
     public Connection obtenerConeccion() {
         return concDB;
     }
@@ -52,8 +51,8 @@ public class ConeccionDB {
             this.mensaje = sqlException.getMessage();
         }
     }
-    
-   public ResultSet leerDatos(String tableName) {
+
+    public ResultSet leerDatos(String tableName) {
         ResultSet resultSet = null;
         try {
             establecerConexion();
@@ -64,8 +63,8 @@ public class ConeccionDB {
         }
         return resultSet;
     }
-   
-   public int obtenerCodigoPorPasaporte(String pasaporte) {
+
+    public int obtenerCodigoPorPasaporte(String pasaporte) {
         int codigo = -1;
         try {
             establecerConexion();
@@ -81,34 +80,34 @@ public class ConeccionDB {
         }
         return codigo;
     }
-    
-   public Clientes obtenerClientePorPasaporte(String pasaporte) {
-    Clientes cliente = null;
-    try {
-        establecerConexion();
-        try (Statement statement = concDB.createStatement()) {
-            String query = String.format("SELECT * FROM Clientes WHERE pasaporte = '%s'", pasaporte);
-            ResultSet resultSet = statement.executeQuery(query);
-            if (resultSet.next()) {
-                cliente = new Clientes(
-                    resultSet.getString("nombres"),
-                    resultSet.getString("pasaporte"),
-                    resultSet.getString("ciudad"),
-                    resultSet.getString("marca"),
-                    resultSet.getString("modelo"),
-                    resultSet.getString("numeroCelular"),
-                    resultSet.getString("numeroTarjetaCredito"),
-                    resultSet.getInt("codigo"),
-                    resultSet.getDouble("pagoMensual"),
-                    resultSet.getString("tipoDePlan_1"),
-                    resultSet.getString("tipoDePlan_2"));
+
+    public Clientes obtenerClientePorPasaporte(String pasaporte) {
+        Clientes cliente = null;
+        try {
+            establecerConexion();
+            try (Statement statement = concDB.createStatement()) {
+                String query = String.format("SELECT * FROM Clientes WHERE pasaporte = '%s'", pasaporte);
+                ResultSet resultSet = statement.executeQuery(query);
+                if (resultSet.next()) {
+                    cliente = new Clientes(
+                            resultSet.getString("nombres"),
+                            resultSet.getString("pasaporte"),
+                            resultSet.getString("ciudad"),
+                            resultSet.getString("marca"),
+                            resultSet.getString("modelo"),
+                            resultSet.getString("numeroCelular"),
+                            resultSet.getString("numeroTarjetaCredito"),
+                            resultSet.getInt("codigo"),
+                            resultSet.getDouble("pagoMensual"),
+                            resultSet.getString("tipoDePlan_1"),
+                            resultSet.getString("tipoDePlan_2"));
+                }
             }
+        } catch (SQLException sqlException) {
+            this.mensaje = sqlException.getMessage();
         }
-    } catch (SQLException sqlException) {
-        this.mensaje = sqlException.getMessage();
+        return cliente;
     }
-    return cliente;
-}
 
     public void actualizarRegistro(String tableName, String strUpdate) {
         try {

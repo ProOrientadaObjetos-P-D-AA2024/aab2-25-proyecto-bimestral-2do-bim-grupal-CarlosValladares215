@@ -115,8 +115,8 @@ public class DataBaseUtils {
         
         public static String generarUpdateCliente(String tableName, Clientes cliente, String pasaporte) {
             String strUpdate;
-            strUpdate = String.format("UPDATE %s SET nombres='%s', ciudad='%s', marca=='%s', numeroCelula='%s', numeroTarjetaCredito='%s', codigo='%s', pagoMensual=%.2f, tipoDePlan_1='%s', tipoDePlan_2='%s' WHERE pasaporte='%s'",
-                            tableName, cliente.getNombres(), cliente.getCiudad(), cliente.getMarca(), cliente.getNumeroCelular(), cliente.getNumeroTarjetaCredito(), cliente.getCodigo(), cliente.getPagoMensual(), cliente.getTipoDePlan_1(), cliente.getTipoDePlan_2(), pasaporte);
+            strUpdate = String.format("UPDATE %s SET nombres='%s', ciudad='%s', marca='%s', modelo='%s', numeroCelula='%s', numeroTarjetaCredito='%s', codigo=%d, pagoMensual=%.2f, tipoDePlan_1='%s', tipoDePlan_2='%s' WHERE pasaporte='%s'",
+                            tableName, cliente.getNombres(), cliente.getCiudad(), cliente.getMarca(), cliente.getModelo(), cliente.getNumeroCelular(), cliente.getNumeroTarjetaCredito(), cliente.getCodigo(), cliente.getPagoMensual(), cliente.getTipoDePlan_1(), cliente.getTipoDePlan_2(), pasaporte);
             return strUpdate;
         }
     }

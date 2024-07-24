@@ -83,6 +83,7 @@ public class Ejecutor {
                                     planComprado.calcularPlan();
                                     sesion.getCliente().setListaPlanes(planComprado);
                                     sesion.getCliente().calcularPagoMensual();
+                                    
                                     dataClientes.actualizarCliente(sesion.getCliente(), "PlanPostPagoMinutosMegasEconomico", sesion.getCliente().getPasaporte());
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
@@ -152,31 +153,59 @@ public class Ejecutor {
                     }
 
                     break;
-                 case 2:
-                    System.out.println("Ingrese los datos del cliente:");
-                    System.out.print("Nombres: ");
-                    nombre = entrada.nextLine();
-                    System.out.print("Pasaporte: ");
-                    pasaporte = entrada.nextLine();
-                    System.out.print("Ciudad: ");
-                    ciudad = entrada.nextLine();
-                    System.out.print("Marca: ");
-                    marca = entrada.nextLine();
-                    System.out.print("Modelo: ");
-                    modelo = entrada.nextLine();
-                    System.out.print("Número de Celular: ");
-                    numeroCelular = entrada.nextLine();
-                    System.out.print("Número de Tarjeta de Crédito: ");
-                    numeroTarjetaCredito = entrada.nextLine();
-                    System.out.print("Contraseña: ");
-                    codigo = entrada.nextInt();
-                    System.out.print("Pago Mensual: ");
-                    pagoMensual = entrada.nextDouble();
-                    entrada.nextLine(); 
+                case 2:
+                    if (cadenaOpcion2.equals("Registrarse")) {
+                        System.out.println("Ingrese los datos del cliente:");
+                        System.out.print("Nombres: ");
+                        nombre = entrada.nextLine();
+                        System.out.print("Pasaporte: ");
+                        pasaporte = entrada.nextLine();
+                        System.out.print("Ciudad: ");
+                        ciudad = entrada.nextLine();
+                        System.out.print("Marca: ");
+                        marca = entrada.nextLine();
+                        System.out.print("Modelo: ");
+                        modelo = entrada.nextLine();
+                        System.out.print("Número de Celular: ");
+                        numeroCelular = entrada.nextLine();
+                        System.out.print("Número de Tarjeta de Crédito: ");
+                        numeroTarjetaCredito = entrada.nextLine();
+                        System.out.print("Contraseña: ");
+                        codigo = entrada.nextInt();
+                        entrada.nextLine();
 
-                    Clientes nuevoCliente = new Clientes(nombre, pasaporte, ciudad, marca, modelo, numeroCelular, numeroTarjetaCredito, codigo, pagoMensual,"","");
-                    dataClientes.insertarCliente(nuevoCliente);
-                    System.out.println("Cliente registrado exitosamente.");
+                        Clientes nuevoCliente = new Clientes(nombre, pasaporte, ciudad, marca, modelo, numeroCelular, numeroTarjetaCredito, codigo, 0, "", "");
+                        dataClientes.insertarCliente(nuevoCliente);
+                        System.out.println("Cliente registrado exitosamente.");
+                    } else {
+                        System.out.println("Elija el plan a eliminar:");
+                        Clientes cliente = dataClientes.obtenerClientePorPasaporte(pasaporte);
+                        System.out.println("1. " + cliente.getTipoDePlan_1());
+                        System.out.println("2. " + cliente.getTipoDePlan_2());
+                        opcion = entrada.nextInt();
+                        entrada.nextLine();
+
+                        switch (opcion) {
+                            case 1: {
+                                String tipoDePlan = cliente.getTipoDePlan_1();
+                                cliente.setTipoDePlan_1("");
+                                dataPlanes.eliminarPlan(tipoDePlan, cliente.getPasaporte());
+                                System.out.println("Plan " + tipoDePlan + " eliminado exitosamente.");
+                                break;
+                            }
+                            case 2: {
+                                String tipoDePlan = cliente.getTipoDePlan_2();
+                                cliente.setTipoDePlan_2("");
+                                dataPlanes.eliminarPlan(tipoDePlan, cliente.getPasaporte());
+                                System.out.println("Plan " + tipoDePlan + " eliminado exitosamente.");
+                                break;
+                            }
+                            default:
+                                System.out.println("Opción inválida.");
+                                break;
+                        }
+                        dataClientes.actualizarCliente(cliente, "Clientes", cliente.getPasaporte());
+                    }
                     break;
                 case 3:
                     System.out.println("1. Crear Cliente");
@@ -207,7 +236,7 @@ public class Ejecutor {
                             codigo = entrada.nextInt();
                             entrada.nextLine(); // Consumir la nueva línea
 
-                            nuevoCliente = new Clientes(nombre, pasaporte, ciudad, marca, modelo, numeroCelular, numeroTarjetaCredito, codigo, 0, "","");
+                            Clientes nuevoCliente = new Clientes(nombre, pasaporte, ciudad, marca, modelo, numeroCelular, numeroTarjetaCredito, codigo, 0, "", "");
                             dataClientes.insertarCliente(nuevoCliente);
                             System.out.println("Cliente registrado exitosamente.");
                             break;
@@ -240,7 +269,7 @@ public class Ejecutor {
                                 clienteActualizado.setNumeroTarjetaCredito(entrada.nextLine());
                                 System.out.print("Contraseña: ");
                                 clienteActualizado.setCodigo(entrada.nextInt());
-                                
+
                                 dataClientes.actualizarCliente(clienteActualizado, "Clientes", clienteActualizado.getPasaporte());
                                 System.out.println("Cliente actualizado exitosamente.");
                             }

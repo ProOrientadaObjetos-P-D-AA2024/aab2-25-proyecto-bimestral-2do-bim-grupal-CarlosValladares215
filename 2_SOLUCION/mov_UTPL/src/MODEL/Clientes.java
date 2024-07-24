@@ -165,4 +165,18 @@ public class Clientes {
         }
         }
     }
+    
+    @Override
+    public String toString() {
+        String cadena = String.format("\nCliente\n* Nombre: %s\n* Pasaporte: %s\n* Ciudad: %s\n* Marca: %s\n* Modelo: %s\n* Número de celular: %s\n* Número de tarjeta de crédito: %s",nombres, pasaporte, ciudad,marca,modelo,numeroCelular,numeroTarjetaCredito);
+        if (getListaPlanes().isEmpty()) {
+            System.out.println("\t-Ninguno");
+        } else {
+            for (int i = 0; i < getListaPlanes().size(); i++) {
+                System.out.println("\t- " + getListaPlanes().get(i).nombrePlan());
+            }
+        }
+        cadena = String.format("%s\n* Pago Mensual: %s",cadena, pagoMensual);
+        return cadena;
+    }
 }

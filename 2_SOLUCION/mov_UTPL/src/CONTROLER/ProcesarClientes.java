@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class ProcesarClientes {
     protected ConeccionDB dbConnection;
-    protected ArrayList<Clientes> listaDeClientes;
+    public ArrayList<Clientes> listaDeClientes;
 
     public ProcesarClientes(ConeccionDB dbConnection, ArrayList<Clientes> listaDeClientes) {
         this.dbConnection = dbConnection;
