@@ -163,6 +163,7 @@ public class Clientes {
                 System.out.println("Usted ha alcanzado el limite de planes activos en su cuenta");
             }
         }
+            System.out.println(listaPlanes.size());
         }
     }
     

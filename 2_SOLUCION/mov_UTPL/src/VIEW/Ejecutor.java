@@ -81,9 +81,9 @@ public class Ejecutor {
 
                                     PlanPostPagoMinutosMegasEconomico planComprado = new PlanPostPagoMinutosMegasEconomico(sesion.getCliente().getPasaporte(), minutos, megas);
                                     planComprado.calcularPlan();
-                                    sesion.getCliente().setListaPlanes(planComprado);
-                                    sesion.getCliente().calcularPagoMensual();
                                     
+                                    sesion.getCliente().setListaPlanes(planComprado);
+                                    dataClientes.setListaDeClientes(sesion.getCliente());
                                     dataClientes.actualizarCliente(sesion.getCliente());
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
@@ -102,8 +102,9 @@ public class Ejecutor {
 
                                     PlanPostPagoMinutosMegas planComprado = new PlanPostPagoMinutosMegas(sesion.getCliente().getPasaporte(), minutos, megas);
                                     planComprado.calcularPlan();
+                                    
                                     sesion.getCliente().setListaPlanes(planComprado);
-                                    sesion.getCliente().calcularPagoMensual();
+                                    dataClientes.setListaDeClientes(sesion.getCliente());
                                     dataClientes.actualizarCliente(sesion.getCliente());
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
@@ -119,12 +120,14 @@ public class Ejecutor {
                                     minutoInternacional = entrada.nextInt();
                                     System.out.println("Ingrese la cantidad de minutos nacionales que se desea adquirir");
                                     minutos = entrada.nextInt();
-
+                                    
                                     PlanPostPagoMinutos planComprado = new PlanPostPagoMinutos(sesion.getCliente().getPasaporte(), minutos, minutoInternacional);
                                     planComprado.calcularPlan();
+                                    
                                     sesion.getCliente().setListaPlanes(planComprado);
-                                    sesion.getCliente().calcularPagoMensual();
+                                    dataClientes.setListaDeClientes(sesion.getCliente());
                                     dataClientes.actualizarCliente(sesion.getCliente());
+                                    
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
                                 }
@@ -140,8 +143,9 @@ public class Ejecutor {
 
                                     PlanPostPagoMegas planComprado = new PlanPostPagoMegas(sesion.getCliente().getPasaporte(), megas);
                                     planComprado.calcularPlan();
+                                    
                                     sesion.getCliente().setListaPlanes(planComprado);
-                                    sesion.getCliente().calcularPagoMensual();
+                                    dataClientes.setListaDeClientes(sesion.getCliente());
                                     dataClientes.actualizarCliente(sesion.getCliente());
                                 } else {
                                     System.out.println("La compra ha sido cancelada");
@@ -211,7 +215,7 @@ public class Ejecutor {
                     System.out.println("2. Leer Clientes");
                     System.out.println("3. Actualizar Cliente");
                     System.out.println("4. Eliminar Cliente");
-                    int crudOpcion = entrada.nextInt();
+                    int crudOpcion = entrada.nextInt(); 
                     entrada.nextLine(); // Consumir la nueva línea
 
                     switch (crudOpcion) {

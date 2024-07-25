@@ -33,9 +33,10 @@ public class CRUD_Clientes extends ProcesarClientes {
     }
 
     public void actualizarCliente(Clientes cliente) {
-        System.out.println("");
+        System.out.println("Cliente actualizandose....");
+        cliente.calcularPagoMensual();
         listaDeClientes.set(listaDeClientes.indexOf(cliente), cliente);
-        (new ConeccionDB()).actualizarCliente(cliente);
+        (new ConeccionDB()).actualizarCliente(cliente); 
     }
 
     public void eliminarCliente(String pasaporte) {
@@ -53,6 +54,15 @@ public class CRUD_Clientes extends ProcesarClientes {
 
     public Clientes obtenerClientePorPasaporte(String pasaporte) {
         return dbConnection.obtenerClientePorPasaporte(pasaporte);
+    }
+
+    public ArrayList<Clientes> getListaDeClientes() {
+        return listaDeClientes;
+    }
+
+    public void set_ListaDeClientes(Clientes cliente) {
+        cliente.calcularPagoMensual();
+        listaDeClientes.add(cliente);
     }
 
 }
